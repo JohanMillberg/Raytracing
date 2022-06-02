@@ -1,0 +1,15 @@
+G:\Programming files\C_sharp\Raytracing\bin\Debug\net6.0\Raytracing.exe
+G:\Programming files\C_sharp\Raytracing\bin\Debug\net6.0\Raytracing.deps.json
+G:\Programming files\C_sharp\Raytracing\bin\Debug\net6.0\Raytracing.runtimeconfig.json
+G:\Programming files\C_sharp\Raytracing\bin\Debug\net6.0\Raytracing.dll
+G:\Programming files\C_sharp\Raytracing\bin\Debug\net6.0\Raytracing.pdb
+G:\Programming files\C_sharp\Raytracing\obj\Debug\net6.0\Raytracing.csproj.AssemblyReference.cache
+G:\Programming files\C_sharp\Raytracing\obj\Debug\net6.0\Raytracing.GeneratedMSBuildEditorConfig.editorconfig
+G:\Programming files\C_sharp\Raytracing\obj\Debug\net6.0\Raytracing.AssemblyInfoInputs.cache
+G:\Programming files\C_sharp\Raytracing\obj\Debug\net6.0\Raytracing.AssemblyInfo.cs
+G:\Programming files\C_sharp\Raytracing\obj\Debug\net6.0\Raytracing.csproj.CoreCompileInputs.cache
+G:\Programming files\C_sharp\Raytracing\obj\Debug\net6.0\Raytracing.dll
+G:\Programming files\C_sharp\Raytracing\obj\Debug\net6.0\refint\Raytracing.dll
+G:\Programming files\C_sharp\Raytracing\obj\Debug\net6.0\Raytracing.pdb
+G:\Programming files\C_sharp\Raytracing\obj\Debug\net6.0\Raytracing.genruntimeconfig.cache
+G:\Programming files\C_sharp\Raytracing\obj\Debug\net6.0\ref\Raytracing.dll
