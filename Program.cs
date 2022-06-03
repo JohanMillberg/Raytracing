@@ -20,15 +20,16 @@ namespace Raytracing
                 return (-half_b - Math.Sqrt(discriminant)) / a;
         }
 
-        public static color ray_color(ray r)
+        public static color ray_color(ray r, hittable world)
         {
-            var t = hit_sphere(new point3(0,0,-1), 0.5, r);
-            if (t > 0.0) {
-                vec3 N = vec3.unit_vector(r.at(t) - new vec3(0,0,-1));
-                return new color(N.x()+1, N.y()+1, N.z()+1)*0.5;
+            hit_record rec = new hit_record();
+            if (world.hit(r, 0, double.PositiveInfinity, ref rec))
+            {
+                return (rec.normal + new color(1, 1, 1))*0.5;
             }
+
             vec3 unit_direction = vec3.unit_vector(r.direction());
-            t = 0.5*(unit_direction.y() + 1.0);
+            var t = 0.5*(unit_direction.y() + 1.0);
             return new color(1.0, 1.0, 1.0)*(1.0-t) + new color(0.5, 0.7, 1.0)*t;
         }
         static void Main(string[] args) {
@@ -37,6 +38,11 @@ namespace Raytracing
             const double aspect_ratio = 16.0/9.0;
             const int image_width = 400;
             const int image_height = (int) (image_width / aspect_ratio);
+
+            // World
+            hittable_list world = new hittable_list();
+            world.add(new sphere(new point3(0, 0, -1), 0.5));
+            world.add(new sphere(new point3(0, -100.5, -1), 100));
 
             // Camera
             var viewport_height = 2.0;
@@ -65,7 +71,7 @@ namespace Raytracing
                 {
                     var u = (double)i/(double)(image_width-1);
                     ray r = new ray(origin, lower_left_corner + horizontal*u + vertical*v - origin);
-                    color pixel_color = ray_color(r);
+                    color pixel_color = ray_color(r, world);
                     colorFuncs.write_color(pixel_color);
                 }
             }

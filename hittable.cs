@@ -5,6 +5,15 @@ namespace Raytracing
     using point3 = vec3;
     public struct hit_record
     {
+        /*
+        public hit_record()
+        {
+            this.p = new point3();
+            this.normal = new vec3();
+            this.t = 0;
+            this.front_face = false;
+        }
+        */
         public hit_record(point3 p, vec3 normal, double t)
         {
             this.p = p;
