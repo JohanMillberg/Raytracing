@@ -20,12 +20,18 @@ namespace Raytracing
                 return (-half_b - Math.Sqrt(discriminant)) / a;
         }
 
-        public static color ray_color(ray r, hittable world)
+        public static color ray_color(ray r, hittable world, int depth)
         {
             hit_record rec = new hit_record();
-            if (world.hit(r, 0, double.PositiveInfinity, ref rec))
+            if (depth <= 0)
             {
-                return (rec.normal + new color(1, 1, 1))*0.5;
+                return new color(0,0,0);
+            }
+
+            if (world.hit(r, 0.001, double.PositiveInfinity, ref rec))
+            {
+                point3 target = rec.p + vec3.random_in_hemisphere(rec.normal);
+                return (ray_color(new ray(rec.p, target - rec.p), world, depth-1))*0.5;
             }
 
             vec3 unit_direction = vec3.unit_vector(r.direction());
@@ -38,6 +44,8 @@ namespace Raytracing
             const double aspect_ratio = 16.0/9.0;
             const int image_width = 400;
             const int image_height = (int) (image_width / aspect_ratio);
+            const int samples_per_pixel = 100;
+            const int max_depth = 50;
 
             // World
             hittable_list world = new hittable_list();
@@ -45,14 +53,7 @@ namespace Raytracing
             world.add(new sphere(new point3(0, -100.5, -1), 100));
 
             // Camera
-            var viewport_height = 2.0;
-            var viewport_width = aspect_ratio * viewport_height;
-            var focal_length = 1.0;
-
-            var origin = new point3(0,0,0);
-            var horizontal = new vec3(viewport_width, 0, 0);
-            var vertical = new vec3(0, viewport_height, 0);
-            var lower_left_corner = origin - horizontal/2 - vertical/2 - new vec3(0, 0, focal_length);
+            camera cam = new camera();
 
             // Render
             string fileName = "image.ppm";
@@ -66,13 +67,17 @@ namespace Raytracing
 
             for (int j = image_height-1; j >= 0; j--)
             {
-                var v = ((double)j/(double)(image_height-1));
                 for (int i = 0; i < image_width; i++)
                 {
-                    var u = (double)i/(double)(image_width-1);
-                    ray r = new ray(origin, lower_left_corner + horizontal*u + vertical*v - origin);
-                    color pixel_color = ray_color(r, world);
-                    colorFuncs.write_color(pixel_color);
+                    color pixel_color = new color(0, 0, 0);
+                    for (int s = 0; s < samples_per_pixel; s++)
+                    {
+                        var v = (j + helper_class.random_double()) / (image_height-1);
+                        var u = (i + helper_class.random_double()) / (image_width-1);
+                        ray r = cam.get_ray(u, v);
+                        pixel_color += ray_color(r, world, max_depth);
+                    }
+                    colorFuncs.write_color(pixel_color, samples_per_pixel);
                 }
             }
 

@@ -101,5 +101,39 @@ namespace Raytracing
         {
             return $"({this.e[0]}, {this.e[1]}, {this.e[2]})";
         }
+
+        public static vec3 random()
+        {
+            return new vec3(helper_class.random_double(), helper_class.random_double(), helper_class.random_double());
+        }
+
+        public static vec3 random(double min, double max)
+        {
+            return new vec3(helper_class.random_double(min, max), helper_class.random_double(min, max), helper_class.random_double(min, max));
+        }
+
+        public static vec3 random_in_unit_sphere()
+        {
+            while (true)
+            {
+                var p = vec3.random(-1, 1);
+                if (p.length_squared() >= 1) continue;
+                return p;
+            }
+        }
+
+        public static vec3 random_unit_vector()
+        {
+            return unit_vector(random_in_unit_sphere());
+        }
+
+        public static vec3 random_in_hemisphere(vec3 normal)
+        {
+            vec3 in_unit_sphere = random_in_unit_sphere();
+            if (dot(in_unit_sphere, normal) > 0.0)
+                return in_unit_sphere;
+            else
+                return -in_unit_sphere;
+        }
     }
 }
