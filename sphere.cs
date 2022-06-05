@@ -13,7 +13,7 @@ namespace Raytracing
             this.radius = r;
         }
 
-        public override bool hit(ray r, double t_min, double t_max, ref hit_record rec)
+        public bool hit(ray r, double t_min, double t_max, ref hit_record rec)
         {
             vec3 oc = r.origin() - this.center;
             var a = r.direction().length_squared();

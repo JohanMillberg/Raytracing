@@ -17,7 +17,7 @@ namespace Raytracing
             this.objects.Add(item);
         }
 
-        public override bool hit(ray r, double t_min, double t_max, ref hit_record rec)
+        public bool hit(ray r, double t_min, double t_max, ref hit_record rec)
         {
             hit_record temp_rec = new hit_record();
             bool hit_anything = false;

@@ -35,7 +35,7 @@ namespace Raytracing
         }
     }
 
-    public abstract class hittable
+    public interface hittable
     {
         public abstract bool hit(ray r, double t_min, double t_max, ref hit_record rec);
     }
